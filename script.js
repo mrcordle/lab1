@@ -1,4 +1,3 @@
-startGame();
 
 
 function startGame(){
@@ -34,21 +33,19 @@ function startCombat(userName){
     console.log(userName + " has " + userHealth +" health left.");
     console.log("Grant has "+ grantHealth+ " health left.");
      }else{
-       console.log("You must choose attack or quit");
-       continue;
-     }
+      console.log("You must choose attack or quit");
+      continue;
+}
+      if(grantHealth <= 0){
+      wins = wins + 1;
+      grantHealth = 10;
+      console.log("You received a win.")
   }
-    
-    if(grantHealth <= 0){
-        wins = wins + 1;
-        grantHealth = 10;
-        console.log("You received a win.")
-  }
-  
     if(userHealth <= 0){
       console.log("You have been defeated");
     }
       if(wins >= 3){
       console.log("You have defeated Grant!");
       }
-  }
+}
+}

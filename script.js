@@ -5,7 +5,7 @@ class User{
     this.wins = 0;
   }
   getDamage(){
-    return Math.floor(Math.random() * 2) + 1;
+    return Math.floor(Math.random() * 5) + 1;
   
   }
   heal(){
@@ -20,7 +20,7 @@ class Grant extends User{
     this.grantHealth = 10;
   }
   generateAttackDamage(){
-  return Math.floor(Math.random() * 5) + 1;
+  return Math.floor(Math.random() * 2) + 1;
   }
   
 }

@@ -1,6 +1,5 @@
 class User{
-  constructor(user){
-    this.user = user;
+  constructor(){
     this.userHealth = 40;
     this.healsRemaining = 2;
     this.wins = 0;
@@ -8,7 +7,8 @@ class User{
   getDamage(){
     return Math.floor(Math.random() * 2) + 1;
   
-  }heal(){
+  }
+  heal(){
     return Math.floor(Math.random() * 10) + 1;
   }
 }
@@ -18,7 +18,8 @@ class Grant extends User{
     super();
     this.boss = "Grant";
     this.grantHealth = 10;
-  }generateAttackDamage(){
+  }
+  generateAttackDamage(){
   return Math.floor(Math.random() * 5) + 1;
   }
   
@@ -40,46 +41,41 @@ function startCombat(userName){
 
 var usr = new User();
 var boss = new Grant();
-var grantDamage = boss.generateAttackDamage();
-var damage = usr.getDamage();
-var wins = usr.wins;
-var userHealth = usr.userHealth;
-var grantHealth = boss.grantHealth;
-var heal = usr.heal();
-var healsRemaining = usr.healsRemaining;
 
 
-  while(wins < 5 && userHealth > 0){
+  while(usr.wins < 5 && usr.userHealth > 0){
      var cont = prompt("Would you like to attack, heal or quit")
      if(cont.toLowerCase() === "quit"){
        console.log("You have quit the game.")
        return;
      }
-      if (cont.toLowerCase() === "heal" && healsRemaining > 0){
-      userHealth += heal;
-      healsRemaining --;
-      console.log(userHealth);
-    
+      if (cont.toLowerCase() === "heal" && usr.healsRemaining > 0){
+      usr.userHealth += usr.heal();
+      usr.healsRemaining --;
+      console.log(userName + " has been healed");
+     }
+     if (cont.toLowerCase() === "heal" && usr.healsRemaining <= 0){
+      console.log(userName + " has no more heals remaining."); 
      }
      if(cont.toLowerCase() === "attack"){
-     userHealth -= damage;
-     grantHealth -= grantDamage;
+     usr.userHealth -= usr.getDamage();
+     boss.grantHealth -= boss.generateAttackDamage();
 
-    console.log(userName + " has " + userHealth +" health left.");
-    console.log("Grant has "+ grantHealth+ " health left.");
+    console.log(userName + " has " + usr.userHealth +" health left.");
+    console.log("Grant has "+ boss.grantHealth+ " health left.");
      }else{
       console.log("You must choose attack or quit");
       continue;
 }
-      if(grantHealth <= 0){
-      wins = wins + 1;
-      grantHealth = 10;
+      if(boss.grantHealth <= 0){
+      usr.wins = usr.wins + 1;
+      boss.grantHealth = 10;
       console.log("You received a win.")
   }
-    if(userHealth <= 0){
+    if(usr.userHealth <= 0){
       console.log("You have been defeated");
     }
-      if(wins >= 5){
+      if(usr.wins >= 5){
       console.log("You have defeated Grant!");
       }
 }
